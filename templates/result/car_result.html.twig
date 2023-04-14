@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+
+car value estimate: {{ valuation }}
+<table>
+    <thead>
+    <tr>
+        <th>Vehicle</th>
+        <th>Price</th>
+        <th>Mileage</th>
+        <th>Location</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cars in car %}
+        <tr>
+            <td>{{ car.year }} {{ car.make }} {{ car.model }} {{ car.trim }} </td>
+            <td>{{ car.price }}</td>
+            <td>{{ car.mileage }}</td>
+            <td>{{ car.city }}, {{ car.state }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

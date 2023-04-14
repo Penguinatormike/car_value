@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+{# templates/car_valuation/index.html.twig #}
+
+{% block body %}
+    <div class="container">
+        <h1>Car Valuation</h1>
+
+        {{ form_start(form) }}
+        {{ form_row(form.make) }}
+        {{ form_row(form.model) }}
+        {{ form_row(form.trim) }}
+        {{ form_row(form.year) }}
+        {{ form_row(form.mileage) }}
+        {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
