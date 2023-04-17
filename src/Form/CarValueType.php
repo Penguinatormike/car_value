@@ -2,44 +2,66 @@
 
 namespace App\Form;
 
+use App\Entity\Dealer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Positive;
 
 class CarValueType extends AbstractType
 {
+    const MAKE = 'make';
+    const MODEL = 'model';
+    const YEAR = 'year';
+    const TRIM = 'trim';
+    const MILEAGE = 'mileage';
+    const STATE = 'state';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('make', TextType::class, [
+            ->add(self::MAKE, TextType::class, [
                 'label' => 'Make',
-                'attr' => ['placeholder' => 'Enter the make of your car'],
+                'attr' => ['placeholder' => 'Make of your car'],
                 'required' => true
             ])
-            ->add('model', TextType::class, [
+            ->add(self::MODEL, TextType::class, [
                 'label' => 'Model',
-                'attr' => ['placeholder' => 'Enter the model of your car'],
+                'attr' => ['placeholder' => 'Model of your car'],
                 'required' => true
             ])
-            ->add('trim', TextType::class, [
-                'label' => 'Trim',
-                'attr' => ['placeholder' => 'Enter the trim of your car'],
-            ])
-            ->add('year', IntegerType::class, [
+            ->add(self::YEAR, ChoiceType::class, [
                 'label' => 'Year',
-                'attr' => ['placeholder' => 'Enter the year of your car'],
-                'required' => true
+                'required' => true,
+                'choices' => array_reverse(
+                    range(0, (int) (new \DateTime())->format('Y') + 1), // 0 - currentYear + 1
+                    true
+                )
             ])
-            ->add('mileage', IntegerType::class, [
+            ->add(self::TRIM, TextType::class, [
+                'label' => 'Trim',
+                'attr' => ['placeholder' => 'Trim of your car'],
+                'required' => false
+            ])
+            ->add(self::MILEAGE, IntegerType::class, [
                 'label' => 'Mileage',
-                'attr' => ['placeholder' => 'Enter the mileage of your car'],
-                'required' => true
+                'attr' => ['placeholder' => 'Mileage of your car'],
+                'constraints' => [new Positive()],
+                'required' => false
+            ])
+            ->add(self::STATE, ChoiceType::class, [
+                'label' => 'State/Province',
+                'attr' => ['placeholder' => 'State or province'],
+                'choices' => array_flip(Dealer::AMERICAN_STATE_MAP + Dealer::CANADIAN_PROV_MAP),
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Get Valuation',
                 'attr' => ['class' => 'btn btn-primary']
-            ]);
+            ])->getForm();
     }
 }

@@ -1,0 +1,25 @@
+label.required:after {
+    content: "*";
+    color: red;
+}
+label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+input,select {
+    margin-left: 10px;
+}
+
+/* Error messages */
+input + ul li {
+    padding-left: 80px;
+    color: red;
+    list-style: none;
+    display: inline;
+}

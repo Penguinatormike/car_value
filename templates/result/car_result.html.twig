@@ -1,24 +1,54 @@
-{% extends 'layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
+{% block body -%}
 
-car value estimate: {{ valuation }}
-<table>
-    <thead>
-    <tr>
-        <th>Vehicle</th>
-        <th>Price</th>
-        <th>Mileage</th>
-        <th>Location</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for cars in car %}
-        <tr>
-            <td>{{ car.year }} {{ car.make }} {{ car.model }} {{ car.trim }} </td>
-            <td>{{ car.price }}</td>
-            <td>{{ car.mileage }}</td>
-            <td>{{ car.city }}, {{ car.state }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <div class="col-lg-8 offset-lg-5">
+        <h5>Results for:</h5>
+        {% for key, value in carForm %}
+            <div>
+                {% if value is not empty %}
+                    {% if key == 'state' and value in stateOrProvinceMap|keys  %}
+                        State/Province: {{ stateOrProvinceMap[value] }}
+                    {% else %}
+                        {{ key|capitalize }}: {{ value }}
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if errorMsg is empty %}
+        <div>
+            <h2 class="col-lg-8 offset-lg-4">
+                Your car value estimate: ${{ (carValue)|number_format(2) }}
+            </h2>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Vehicle</th>
+                <th>Price</th>
+                <th>Mileage</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for car in carData %}
+                <tr>
+                    <td>{{ car.yearRelease }} {{ car.makeName }} {{ car.modelName }} {{ car.trimName }} </td>
+                    <td>${{ car.listingPrice|number_format(0) }}</td>
+                    <td>{{ car.listingMileage|number_format(0) }}</td>
+                    <td>{{ car.dealerCity }}, {{ car.dealerState }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="col-lg-8 offset-lg-5">
+            {% for msg in errorMsg %}
+                <div>{{ msg }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

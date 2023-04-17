@@ -29,7 +29,7 @@ class CarModel
     private $modelName;
 
     /**
-     * @var \CarMake
+     * @var CarMake
      *
      * @ORM\ManyToOne(targetEntity="CarMake")
      * @ORM\JoinColumns({

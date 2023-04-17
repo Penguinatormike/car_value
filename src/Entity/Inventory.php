@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Inventory
 {
+    const LISTING_PRICE = 'listingPrice';
+    const LISTING_MILEAGE = 'listingMileage';
+
     /**
      * @var int
      *
@@ -72,7 +74,7 @@ class Inventory
     private $listingStatus = 'NULL';
 
     /**
-     * @var \Dealer
+     * @var Dealer
      *
      * @ORM\ManyToOne(targetEntity="Dealer")
      * @ORM\JoinColumns({
@@ -82,7 +84,7 @@ class Inventory
     private $dealer;
 
     /**
-     * @var \Car
+     * @var Car
      *
      * @ORM\ManyToOne(targetEntity="Car")
      * @ORM\JoinColumns({

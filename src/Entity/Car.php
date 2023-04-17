@@ -85,7 +85,7 @@ class Car
     private $interiorColor;
 
     /**
-     * @var \CarModel
+     * @var CarModel
      *
      * @ORM\ManyToOne(targetEntity="CarModel")
      * @ORM\JoinColumns({

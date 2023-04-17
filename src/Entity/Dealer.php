@@ -13,6 +13,84 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Dealer
 {
+    // Source for canadian/us provinces/states https://www.ups.com/worldshiphelp/WSA/ENU/AppHelp/mergedProjects/CORE/Codes/State_Province_Codes.htm
+    public const CANADIAN_PROV_MAP = [
+        "ab" => "AB - Alberta, CA",
+        "bc" => "BC - British Columbia, CA",
+        "mb" => "MB - Manitoba, CA",
+        "nb" => "NB - New Brunswick, CA",
+        "nl" => "NL - Newfoundland and Labrador, CA",
+        "nt" => "NT - Northwest Territories, CA",
+        "ns" => "NS - Nova Scotia, CA",
+        "nu" => "NU - Nunavut, CA",
+        "on" => "ON - Ontario, CA",
+        "pe" => "PE - Prince Edward Island, CA",
+        "qc" => "QC - Quebec, CA",
+        "sk" => "SK - Saskatchewan, CA",
+        "yt" => "YT - Yukon, CA"
+    ];
+
+    public const AMERICAN_STATE_MAP = [
+        "al" => "AL - Alabama, US",
+        "ak" => "AK - Alaska, US",
+        "az" => "AZ - Arizona, US",
+        "ar" => "AR - Arkansas, US",
+        "aa" => "AA - Armed Forces America",
+        "ae" => "AE - Armed Forces Europe",
+        "ap" => "AP - Armed Forces Pacific",
+        "ca" => "CA - California, US",
+        "co" => "CO - Colorado, US",
+        "ct" => "CT - Connecticut, US",
+        "de" => "DE - Delaware, US",
+        "dc" => "DC - District of Columbia, US",
+        "fl" => "FL - Florida, US",
+        "ga" => "GA - Georgia, US",
+        "hi" => "HI - Hawaii, US",
+        "id" => "ID - Idaho, US",
+        "il" => "IL - Illinois, US",
+        "in" => "IN - Indiana, US",
+        "ia" => "IA - Iowa, US",
+        "ks" => "KS - Kansas, US",
+        "ky" => "KY - Kentucky, US",
+        "la" => "LA - Louisiana, US",
+        "me" => "ME - Maine, US",
+        "md" => "MD - Maryland, US",
+        "ma" => "MA - Massachusetts, US",
+        "mi" => "MI - Michigan, US",
+        "mn" => "MN - Minnesota, US",
+        "ms" => "MS - Mississippi, US",
+        "mo" => "MO - Missouri, US",
+        "mt" => "MT - Montana, US",
+        "ne" => "NE - Nebraska, US",
+        "nv" => "NV - Nevada, US",
+        "nh" => "NH - New Hampshire, US",
+        "nj" => "NJ - New Jersey, US",
+        "nm" => "NM - New Mexico, US",
+        "ny" => "NY - New York, US",
+        "nc" => "NC - North Carolina, US",
+        "nd" => "ND - North Dakota, US",
+        "oh" => "OH - Ohio, US",
+        "ok" => "OK - Oklahoma, US",
+        "or" => "OR - Oregon, US",
+        "pa" => "PA - Pennsylvania, US",
+        "ri" => "RI - Rhode Island, US",
+        "sc" => "SC - South Carolina, US",
+        "sd" => "SD - South Dakota, US",
+        "tn" => "TN - Tennessee, US",
+        "tx" => "TX - Texas, US",
+        "ut" => "UT - Utah, US",
+        "vt" => "VT - Vermont, US",
+        "va" => "VA - Virginia, US",
+        "wa" => "WA - Washington, US",
+        "wv" => "WV - West Virginia, US",
+        "wi" => "WI - Wisconsin, US",
+        "wy" => "WY - Wyoming, US",
+    ];
+
+    const COUNTRY_CAN = 'can';
+    const COUNTRY_USA = 'usa';
+
+    const DEALER_COUNTRY = 'dealerCountry';
     /**
      * @var int
      *
@@ -28,6 +106,13 @@ class Dealer
      * @ORM\Column(name="dealer_name", type="string", length=255, nullable=false)
      */
     private $dealerName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dealer_country", type="string", length=255, nullable=false)
+     */
+    private $dealerCountry;
 
     /**
      * @var string
@@ -84,6 +169,18 @@ class Dealer
     public function setDealerName(string $dealerName): self
     {
         $this->dealerName = $dealerName;
+
+        return $this;
+    }
+
+    public function getDealerCountry(): ?string
+    {
+        return $this->dealerCountry;
+    }
+
+    public function setDealerCountry(string $dealerCountry): self
+    {
+        $this->dealerCountry = $dealerCountry;
 
         return $this;
     }

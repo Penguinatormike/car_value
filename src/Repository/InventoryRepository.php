@@ -44,20 +44,66 @@ class InventoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Inventory[] Returns an array of  objects
+     * @return Inventory[] Returns an array of inventories by car filters
      */
-    public function findByExampleField($value): array
+    public function findByCar($car): array
     {
-        return $this->createQueryBuilder('in')
-            ->join(Car::class, 'car')
-            ->join(CarModel::class, 'carMo')
-            ->join(CarMake::class, 'carMa')
-            ->join(Dealer::class, 'dl')
-            ->andWhere('carMa.makeName LIKE :val')
-            ->setParameter('val', "%$value%")
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
-            ->getResult()
+        $qb = $this->createQueryBuilder('i')
+            ->select([
+                'i.listingMileage AS listingMileage',
+                'i.listingPrice AS listingPrice',
+                'carMo.modelName AS modelName',
+                'carMa.makeName AS makeName',
+                'car.trimName AS trimName',
+                'car.yearRelease AS yearRelease',
+                'dl.dealerCountry AS dealerCountry',
+                'dl.dealerState AS dealerState',
+                'dl.dealerCity AS dealerCity',
+            ])
+            ->join('i.car', 'car')
+            ->join('car.model', 'carMo')
+            ->join('carMo.make', 'carMa')
+            ->join('i.dealer', 'dl')
+            ->andWhere('i.listingPrice != 0') // do not include price 0 as it does not help
+            ->orderBy('i.inventoryId', 'ASC')
+            ->setMaxResults(100) // testing
         ;
+
+        if (isset($car['make'])) {
+            $make = $car['make'];
+            $qb->andWhere('carMa.makeName = :make')
+                ->setParameter('make', $make);
+        }
+
+        if (isset($car['state'])) {
+            $state = $car['state'];
+            $qb->andWhere('dl.dealerState = :state')
+                ->setParameter('state', $state);
+        }
+
+        if (isset($car['model'])) {
+            $model = $car['model'];
+            $qb->andWhere('carMo.modelName LIKE :model')
+                ->setParameter('model', "$model%");
+        }
+
+        if (isset($car['year'])) {
+            $year = $car['year'];
+            $qb->andWhere('car.yearRelease = :year')
+                ->setParameter('year', "$year");
+        }
+
+        if (isset($car['trim'])) {
+            $trim = $car['trim'];
+            $qb->andWhere('car.trimName LIKE :trim')
+                ->setParameter('trim', "$trim%");
+        }
+
+        // If we specify mileage in our form, it will be more accurate to omit empty mileages
+        if (isset($car['mileage'])) {
+            $qb->andWhere('i.listingMileage != 0');
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

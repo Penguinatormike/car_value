@@ -191,10 +191,15 @@ class UploadCarDataCommand extends Command {
                 $dealer = $this->em->getRepository(Dealer::class)->findOneBy(['dealerName' => $dealerName, 'dealerZip' => $dealerZip]);
                 if (!$dealer instanceof Dealer) {
                     $batchCounter++;
+                    $dealerCountry = Dealer::COUNTRY_USA;
+                    if (Dealer::CANADIAN_PROV_MAP[$dealerState]) {
+                        $dealerCountry = Dealer::COUNTRY_CAN;
+                    }
                     $dealer = new Dealer();
                     $dealer
                         ->setDealerName($dealerName)
                         ->setDealerCity($dealerCity)
+                        ->setDealerCountry($dealerCountry)
                         ->setDealerState($dealerState)
                         ->setDealerStreet($dealerStreet)
                         ->setDealerVdpLastSeenDate(new DateTime($dealerVdpLastSeenDate))
