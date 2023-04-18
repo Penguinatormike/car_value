@@ -2,7 +2,6 @@
 namespace App\Calculator\Conversion;
 
 use Exception;
-use Monolog\Logger;
 
 class CurrencyConversion {
 
@@ -27,8 +26,6 @@ class CurrencyConversion {
                 $this->exchangeRate =  $exchangeRate[$toCurrency] ?: 1;
             }
         } catch (Exception $e) {
-            // todo: log api call exception
-//            Monolog
             if (self::OFFLINE_CURRENCY_MAP["$fromCurrency-$toCurrency"]) {
                 $this->exchangeRate = self::OFFLINE_CURRENCY_MAP["$fromCurrency-$toCurrency"];
             }
@@ -39,9 +36,7 @@ class CurrencyConversion {
         return $this->exchangeRate;
     }
 
-    private function getExchangeRateJson($fromCurrency, $toCurrency) {
+    protected function getExchangeRateJson($fromCurrency, $toCurrency) {
         return file_get_contents(sprintf(self::CURRENCY_API, $fromCurrency, $toCurrency));
     }
-
-
 }

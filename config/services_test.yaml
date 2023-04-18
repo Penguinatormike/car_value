@@ -1,0 +1,7 @@
+# config/services_test.yaml
+services:
+  # redefine the classes as public for testing
+  App\Repository\InventoryRepository:
+    public: true
+    arguments:
+      [ '@doctrine' ]

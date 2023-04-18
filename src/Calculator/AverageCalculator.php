@@ -6,6 +6,12 @@ use Exception;
 
 class AverageCalculator extends BaseCalculator implements CalculatorInterface {
 
+    /**
+     * Average price of all cars in the data
+     *
+     * @param $targetMileage
+     * @return float
+     */
     public function calculate($targetMileage) : float {
         $carData = $this->getCarData();
 

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
 
 class CarValueType extends AbstractType
@@ -27,17 +28,22 @@ class CarValueType extends AbstractType
             ->add(self::MAKE, TextType::class, [
                 'label' => 'Make',
                 'attr' => ['placeholder' => 'Make of your car'],
-                'required' => true
+                'constraints' => [new NotBlank()],
+                'required' => true,
+                'trim' => true,
             ])
             ->add(self::MODEL, TextType::class, [
                 'label' => 'Model',
                 'attr' => ['placeholder' => 'Model of your car'],
-                'required' => true
+                'constraints' => [new NotBlank()],
+                'required' => true,
+                'trim' => true,
             ])
             ->add(self::YEAR, ChoiceType::class, [
                 'label' => 'Year',
                 'required' => true,
-                'choices' => array_reverse(
+                'constraints' => [new NotBlank(), new Positive()],
+                'choices' => ["" => ""] + array_reverse(
                     range(0, (int) (new \DateTime())->format('Y') + 1), // 0 - currentYear + 1
                     true
                 )
@@ -45,13 +51,15 @@ class CarValueType extends AbstractType
             ->add(self::TRIM, TextType::class, [
                 'label' => 'Trim',
                 'attr' => ['placeholder' => 'Trim of your car'],
-                'required' => false
+                'required' => false,
+                'trim' => true,
             ])
             ->add(self::MILEAGE, IntegerType::class, [
                 'label' => 'Mileage',
                 'attr' => ['placeholder' => 'Mileage of your car'],
                 'constraints' => [new Positive()],
-                'required' => false
+                'required' => false,
+                'trim' => true,
             ])
             ->add(self::STATE, ChoiceType::class, [
                 'label' => 'State/Province',
