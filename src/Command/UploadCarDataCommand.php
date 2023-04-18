@@ -192,7 +192,7 @@ class UploadCarDataCommand extends Command {
                 if (!$dealer instanceof Dealer) {
                     $batchCounter++;
                     $dealerCountry = Dealer::COUNTRY_USA;
-                    if (Dealer::CANADIAN_PROV_MAP[$dealerState]) {
+                    if (isset(Dealer::CANADIAN_PROV_MAP[$dealerState])) {
                         $dealerCountry = Dealer::COUNTRY_CAN;
                     }
                     $dealer = new Dealer();

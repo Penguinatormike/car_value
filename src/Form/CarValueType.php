@@ -22,6 +22,9 @@ class CarValueType extends AbstractType
     const MILEAGE = 'mileage';
     const STATE = 'state';
 
+    /**
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

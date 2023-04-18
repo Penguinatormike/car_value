@@ -36,7 +36,10 @@ class CurrencyConversion {
         return $this->exchangeRate;
     }
 
-    protected function getExchangeRateJson($fromCurrency, $toCurrency) {
+    /**
+     * @return false|string
+     */
+    protected function getExchangeRateJson($fromCurrency, $toCurrency): string|false {
         return file_get_contents(sprintf(self::CURRENCY_API, $fromCurrency, $toCurrency));
     }
 }

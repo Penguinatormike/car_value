@@ -25,7 +25,7 @@ class Inventory
     private $inventoryId;
 
     /**
-     * @var string
+     * @var float
      *
      * @ORM\Column(name="listing_price", type="decimal", precision=9, scale=2, nullable=false)
      */
@@ -98,12 +98,12 @@ class Inventory
         return $this->inventoryId;
     }
 
-    public function getListingPrice(): ?string
+    public function getListingPrice(): ?float
     {
         return $this->listingPrice;
     }
 
-    public function setListingPrice(string $listingPrice): self
+    public function setListingPrice(float $listingPrice): self
     {
         $this->listingPrice = $listingPrice;
 
