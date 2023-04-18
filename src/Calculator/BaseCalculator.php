@@ -24,17 +24,18 @@ abstract class BaseCalculator implements CalculatorInterface {
 
     /**
      * convert currency and odometer if no state/province, set to USD and Miles.
-     * Assumes cars listed in Canada are in CAD and KM
      *
-     * @param $state
+     * @param array|null $currencyConversionMap
      * @return void
      */
-    public function convertCarData($state = null) : void {
-        if (empty($state)) {
-            $currencyConversion = new CurrencyConversion(CurrencyConversion::CURRENCY_CAD, CurrencyConversion::CURRENCY_USD);
+    public function convertCarData(?array $currencyConversionMap) : void {
+        if (!empty($currencyConversionMap)) {
             foreach ($this->carData as &$carDatum) {
-                if ($carDatum[Dealer::DEALER_COUNTRY] === Dealer::COUNTRY_CAN) {
-                    $carDatum[Inventory::LISTING_PRICE] = $carDatum[Inventory::LISTING_PRICE] * $currencyConversion->getExchangeRate();
+                if (isset($currencyConversionMap[$carDatum[Dealer::DEALER_COUNTRY]])
+                    && $currencyConversionMap[$carDatum[Dealer::DEALER_COUNTRY]] instanceof CurrencyConversion
+                ) {
+                    // Assumes cars listed in Canada are in CAD and KM
+                    $carDatum[Inventory::LISTING_PRICE] = $carDatum[Inventory::LISTING_PRICE] * $currencyConversionMap[$carDatum[Dealer::DEALER_COUNTRY]]->getExchangeRate();
                     $carDatum[Inventory::LISTING_MILEAGE] = $carDatum[Inventory::LISTING_MILEAGE] * OdomoterConversion::KM_TO_MILE;
                 }
             }

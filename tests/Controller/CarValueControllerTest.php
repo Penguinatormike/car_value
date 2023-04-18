@@ -32,7 +32,7 @@ class CarValueControllerTest extends WebTestCase
      * @dataProvider errorProvider
      * @return void
      */
-    public function testErrorForm($formInputs, $expectedErrorMsg): void
+    public function testErrorForm(array $formInputs, string $expectedErrorMsg): void
     {
         $client = static::createClient();
         $client->request('GET', '/');

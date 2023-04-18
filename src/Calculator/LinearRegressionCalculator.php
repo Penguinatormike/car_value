@@ -58,10 +58,12 @@ class LinearRegressionCalculator extends BaseCalculator implements CalculatorInt
         // this usually indicates that the car is new and doesn't have enough data to
         // create the slope variable. In this case, don't use this variable.
         if ($b > 0) {
-            return $a;
+            $carValue = $a;
         } else {
             // y = a + bx (x = targetMileage)
-            return $a + ($b * $targetMileage);
+            $carValue = $a + ($b * $targetMileage);
         }
+
+        return (float) number_format($carValue, 2, '.', '');
     }
 }

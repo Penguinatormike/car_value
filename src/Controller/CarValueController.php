@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Calculator\CalculatorFactory;
+use App\Calculator\Conversion\CurrencyConversion;
 use App\Entity\Dealer;
 use App\Form\CarValueType;
 use App\Repository\InventoryRepository;
@@ -41,10 +42,11 @@ class CarValueController extends AbstractController
             try {
                 $carData = $inventoryRepository->findByCar($formData);
 
-                /** DI for easier testing */
                 $calculatorFactory->create($carData, $formData[CarValueType::MILEAGE] ?? null);
                 $calculator = $calculatorFactory->getCalculator();
-                $calculator->convertCarData($formData[CarValueType::STATE] ?? null);
+
+                $conversionMap = [Dealer::COUNTRY_CAN => new CurrencyConversion(CurrencyConversion::CURRENCY_CAD, CurrencyConversion::CURRENCY_USD)];
+                $calculator->convertCarData($formData[CarValueType::STATE] ? null : $conversionMap);
                 $carValue = $calculator->calculate($formData[CarValueType::MILEAGE] ?? null);
             } catch (\Exception $e) {
                 $logger->error($e->getMessage());

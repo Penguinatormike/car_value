@@ -18,6 +18,6 @@ class AverageCalculator extends BaseCalculator implements CalculatorInterface {
         $totalCars = count($carData);
         $totalCarPrices = array_sum(array_column($carData, Inventory::LISTING_PRICE));
 
-        return (float) $totalCarPrices / $totalCars;
+        return (float) number_format((float) $totalCarPrices / $totalCars, 2, '.', '');
     }
 }

@@ -48,6 +48,8 @@ class InventoryRepository extends ServiceEntityRepository
      */
     public function findByCar($car): array
     {
+        $cacheKey = '';
+
         $qb = $this->createQueryBuilder('i')
             ->select([
                 'i.listingMileage AS listingMileage',
@@ -65,44 +67,52 @@ class InventoryRepository extends ServiceEntityRepository
             ->join('carMo.make', 'carMa')
             ->join('i.dealer', 'dl')
             ->andWhere('i.listingPrice != 0') // do not include price 0 as it does not help
-            ->orderBy('i.inventoryId', 'ASC')
         ;
 
         if (isset($car['make'])) {
             $make = $car['make'];
+            $cacheKey .= $make;
             $qb->andWhere('carMa.makeName = :make')
                 ->setParameter('make', $make);
         }
 
         if (isset($car['state'])) {
             $state = $car['state'];
+            $cacheKey .= $state;
             $qb->andWhere('dl.dealerState = :state')
                 ->setParameter('state', $state);
         }
 
         if (isset($car['model'])) {
             $model = $car['model'];
+            $cacheKey .= $model;
             $qb->andWhere('carMo.modelName LIKE :model')
                 ->setParameter('model', "$model%");
         }
 
         if (isset($car['year'])) {
             $year = $car['year'];
+            $cacheKey .= $year;
             $qb->andWhere('car.yearRelease = :year')
                 ->setParameter('year', "$year");
         }
 
         if (isset($car['trim'])) {
             $trim = $car['trim'];
+            $cacheKey .= $trim;
             $qb->andWhere('car.trimName LIKE :trim')
                 ->setParameter('trim', "$trim%");
         }
 
         // If we specify mileage in our form, it will be more accurate to omit empty mileages
         if (isset($car['mileage'])) {
+            $cacheKey .= 'mileage';
             $qb->andWhere('i.listingMileage != 0');
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()
+            ->useQueryCache(true)
+            ->enableResultCache(3600, $cacheKey)
+            ->getResult();
     }
 }
