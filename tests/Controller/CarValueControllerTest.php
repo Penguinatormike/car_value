@@ -140,7 +140,7 @@ class CarValueControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
 
-        $this->assertSelectorTextContains('h2', 'Your car value estimate: $30,406.00');
+        $this->assertSelectorTextContains('h2', 'Your car value estimate: $30,400');
     }
 
     /**

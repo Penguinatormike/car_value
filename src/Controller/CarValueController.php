@@ -57,7 +57,7 @@ class CarValueController extends AbstractController
             // Render car value results
             return $this->render('result/car_result.html.twig', [
                 'carForm' => $formData,
-                'carValue' => $carValue ?: 0,
+                'carValue' => round(floor((intval($carValue) / 100)) * 100),
                 'carData' => $carData ? array_slice($carData, 0, 100) : [], // only show first 100 cars to the users
                 'errorMsg' => $errorMsg,
                 'stateOrProvinceMap' => Dealer::AMERICAN_STATE_MAP + Dealer::CANADIAN_PROV_MAP

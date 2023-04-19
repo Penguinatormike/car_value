@@ -20,7 +20,7 @@
     {% if errorMsg is empty %}
         <div>
             <h2 class="col-lg-8 offset-lg-4">
-                Your car value estimate: ${{ (carValue)|number_format(2) }}
+                Your car value estimate: ${{ carValue|number_format }}
             </h2>
         </div>
 
