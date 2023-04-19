@@ -126,6 +126,7 @@ CREATE TABLE `inventory` (
   KEY `car_id` (`car_id`),
   KEY `dealer_id` (`dealer_id`),
   KEY `listing_price` (`listing_price`),
+  KEY `first_seen_date` (`first_seen_date`),
   KEY `listing_mileage` (`listing_mileage`),
   CONSTRAINT `fk_car_inventory` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`),
   CONSTRAINT `fk_dealer_inventory` FOREIGN KEY (`dealer_id`) REFERENCES `dealer` (`dealer_id`)
