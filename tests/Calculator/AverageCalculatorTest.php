@@ -4,7 +4,7 @@ namespace App\Tests\Calculator;
 
 use App\Calculator\AverageCalculator;
 
-class AvereageCalculatorTest extends BaseCalculatorTest
+class AverageCalculatorTest extends BaseCalculatorTest
 {
     /**
      * @dataProvider averageCalculatorProvider
