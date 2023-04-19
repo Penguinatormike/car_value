@@ -4,7 +4,7 @@ namespace App\Calculator;
 use App\Entity\Inventory;
 use Exception;
 
-class AverageCalculator extends BaseCalculator implements CalculatorInterface {
+class AverageCalculator extends BaseCalculator {
 
     /**
      * Average price of all cars in the data
