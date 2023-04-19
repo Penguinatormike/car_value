@@ -39,6 +39,7 @@ class CarValueController extends AbstractController
             $formData = $form->getData();
             $logger->debug(json_encode($formData));
 
+            $carValue = 0;
             try {
                 $carData = $inventoryRepository->findByCar($formData);
 
@@ -50,14 +51,14 @@ class CarValueController extends AbstractController
                 $carValue = $calculator->calculate($formData[CarValueType::MILEAGE] ?? null);
             } catch (\Exception $e) {
                 $logger->error($e->getMessage());
-                $errorMsg[] = $e->getMessage();
+                $errorMsg = $e->getMessage();
             }
 
             // Render car value results
             return $this->render('result/car_result.html.twig', [
                 'carForm' => $formData,
                 'carValue' => $carValue ?: 0,
-                'carData' => array_slice($carData, 0, 100), // only show first 100 cars to the users
+                'carData' => $carData ? array_slice($carData, 0, 100) : [], // only show first 100 cars to the users
                 'errorMsg' => $errorMsg,
                 'stateOrProvinceMap' => Dealer::AMERICAN_STATE_MAP + Dealer::CANADIAN_PROV_MAP
             ]);

@@ -46,9 +46,7 @@
         </table>
     {% else %}
         <div class="col-lg-8 offset-lg-5">
-            {% for msg in errorMsg %}
-                <div>{{ msg }}</div>
-            {% endfor %}
+            <h6>{{ errorMsg }}</h6>
         </div>
     {% endif %}
 {% endblock %}

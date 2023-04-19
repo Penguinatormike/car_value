@@ -304,7 +304,7 @@ class AvereageCalculatorTest extends BaseCalculatorTest
     public function testAverageCalculatorNoData(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("No data on car data found");
+        $this->expectExceptionMessage("No car data found");
 
         $averageCalculator = new AverageCalculator([]);
         $averageCalculator->convertCarData(null);

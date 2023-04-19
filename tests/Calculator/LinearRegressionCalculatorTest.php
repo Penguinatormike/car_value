@@ -433,7 +433,7 @@ class LinearRegressionCalculatorTest extends BaseCalculatorTest
     public function testLinearRegressionCalculatorNoData(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("No data on car data found");
+        $this->expectExceptionMessage("No car data found");
 
         $averageCalculator = new LinearRegressionCalculator([]);
         $averageCalculator->convertCarData(null);

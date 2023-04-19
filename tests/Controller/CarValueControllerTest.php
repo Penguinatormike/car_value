@@ -142,4 +142,38 @@ class CarValueControllerTest extends WebTestCase
 
         $this->assertSelectorTextContains('h2', 'Your car value estimate: $30,406.00');
     }
+
+    /**
+     * Test successful form submission, but query returns no data
+     * @return void
+     */
+    public function testSuccessFormNoData(): void
+    {
+        $inventoryRepositoryMock = Mockery::mock(InventoryRepository::class);
+        $inventoryRepositoryMock->allows('findByCar')
+            ->withAnyArgs()
+            ->andReturns([]);
+
+        $client = static::createClient();
+        $client->getContainer()->set(InventoryRepository::class, $inventoryRepositoryMock);
+        $client->request('GET', '/');
+
+        // need to reinject the mocks after shutting down for second request
+        $client->getKernel()->shutdown();
+        $client->getKernel()->boot();
+        $client->disableReboot();
+        $client->getContainer()->set(InventoryRepository::class, $inventoryRepositoryMock);
+        $client->submitForm(self::SUBMIT_FORM_BUTTON,  [
+            'car_value[make]'  => 'Toyota',
+            'car_value[model]' => 'Camry',
+            'car_value[year]' => 2004,
+            'car_value[trim]' => 'le',
+            'car_value[mileage]' => 123,
+            'car_value[state]' => 'bc',
+        ]);
+
+        $this->assertResponseIsSuccessful();
+
+        $this->assertSelectorTextContains('h6 ', 'No car data found');
+    }
 }

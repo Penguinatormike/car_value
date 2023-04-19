@@ -13,7 +13,7 @@ abstract class BaseCalculator implements CalculatorInterface {
 
     public function __construct(array $carData) {
         if (empty($carData)) {
-            throw new \Exception("No data on car data found");
+            throw new \Exception("No car data found");
         }
         $this->carData = $carData;
     }
