@@ -68,7 +68,7 @@ class InventoryRepository extends ServiceEntityRepository
             ->join('i.dealer', 'dl')
             ->andWhere('i.listingPrice != 0') // do not include price 0 as it is not accurate
             ->orderBy('i.firstSeenDate', 'DESC') // fetch latest entries first
-            ->setMaxResults(10) // testing
+//            ->setMaxResults(10) // testing
         ;
 
         if (isset($car['make'])) {
