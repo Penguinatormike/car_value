@@ -39,7 +39,7 @@ abstract class BaseCalculator implements CalculatorInterface
                 ) {
                     // Assumes cars listed in Canada are in CAD and KM
                     $carDatum[Inventory::LISTING_PRICE] = $carDatum[Inventory::LISTING_PRICE] * $currencyConversionMap[$carDatum[Dealer::DEALER_COUNTRY]]->getExchangeRate();
-                    $carDatum[Inventory::LISTING_MILEAGE] = $carDatum[Inventory::LISTING_MILEAGE] / OdomoterConversion::KM_TO_MILE;
+                    $carDatum[Inventory::LISTING_MILEAGE] = $carDatum[Inventory::LISTING_MILEAGE] * OdomoterConversion::KM_TO_MILE;
                 }
             }
         }

@@ -39,6 +39,7 @@ class CarValueService
         try {
             $formData = $this->requestStack->getCurrentRequest()->get(CarValueType::TYPE);
             $carData = $this->inventoryRepository->findByCar($formData);
+            $this->logger->info("carData count: ".count($carData));
 
             $this->calculatorFactory->create($carData, $formData[CarValueType::MILEAGE] ?? null);
             $calculator = $this->calculatorFactory->getCalculator();

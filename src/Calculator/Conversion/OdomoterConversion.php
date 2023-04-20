@@ -4,5 +4,5 @@ namespace App\Calculator\Conversion;
 
 class OdomoterConversion
 {
-    public const KM_TO_MILE = 1.60934;
+    public const KM_TO_MILE = 0.621371;
 }

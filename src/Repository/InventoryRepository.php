@@ -46,6 +46,9 @@ class InventoryRepository extends ServiceEntityRepository
     {
         $cacheKey = '';
 
+        $lastYearDate = new \DateTime();
+        $lastYearDate->sub(new \DateInterval('P1Y'));
+
         $qb = $this->createQueryBuilder('i')
             ->select([
                 'i.listingMileage AS listingMileage',
@@ -63,6 +66,8 @@ class InventoryRepository extends ServiceEntityRepository
             ->join('carMo.make', 'carMa')
             ->join('i.dealer', 'dl')
             ->andWhere('i.listingPrice != 0') // do not include price 0 as it is not accurate
+            ->andWhere('i.firstSeenDate > :lastYearToday')  // might be more accurate only comparing recent data
+            ->setParameter('lastYearToday', $lastYearDate->format('Y-m-d'))
             ->orderBy('i.firstSeenDate', 'DESC') // fetch latest entries first
 //            ->setMaxResults(10) // testing
         ;
