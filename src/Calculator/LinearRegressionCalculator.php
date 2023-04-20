@@ -31,7 +31,7 @@ class LinearRegressionCalculator extends BaseCalculator
         $sumXY = 0;
 
         // it's not possible to find slope data based on one input, return the price of first listing
-        if ($n === 1) {
+        if (1 === $n) {
             return $carData[0][Inventory::LISTING_PRICE];
         }
 

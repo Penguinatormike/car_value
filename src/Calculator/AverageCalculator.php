@@ -3,7 +3,6 @@
 namespace App\Calculator;
 
 use App\Entity\Inventory;
-use Exception;
 
 class AverageCalculator extends BaseCalculator
 {

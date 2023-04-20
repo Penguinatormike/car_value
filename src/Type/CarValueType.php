@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
 
@@ -47,10 +46,10 @@ class CarValueType extends AbstractType
                 'label' => 'Year',
                 'required' => true,
                 'constraints' => [new NotBlank(), new Positive()],
-                'choices' => ["" => ""] + array_reverse(
+                'choices' => ['' => ''] + array_reverse(
                     range(0, (int) (new \DateTime())->format('Y') + 1), // 0 - currentYear + 1
                     true
-                )
+                ),
             ])
             ->add(self::TRIM, TextType::class, [
                 'label' => 'Trim',
@@ -69,11 +68,11 @@ class CarValueType extends AbstractType
                 'label' => 'State/Province',
                 'attr' => ['placeholder' => 'State or province'],
                 'choices' => array_flip(Dealer::AMERICAN_STATE_MAP + Dealer::CANADIAN_PROV_MAP),
-                'required' => false
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Get Valuation',
-                'attr' => ['class' => 'btn btn-primary']
+                'attr' => ['class' => 'btn btn-primary'],
             ])->getForm();
     }
 }

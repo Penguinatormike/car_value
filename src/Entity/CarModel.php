@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CarModel
+ * CarModel.
  *
  * @ORM\Table(name="car_model", uniqueConstraints={@ORM\UniqueConstraint(name="model_name", columns={"model_name"})}, indexes={@ORM\Index(name="make_id", columns={"make_id"}), @ORM\Index(name="model_name_2", columns={"model_name"})})
  * @ORM\Entity
@@ -66,6 +66,4 @@ class CarModel
 
         return $this;
     }
-
-
 }

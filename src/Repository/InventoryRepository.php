@@ -2,10 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Car;
-use App\Entity\CarMake;
-use App\Entity\CarModel;
-use App\Entity\Dealer;
 use App\Entity\Inventory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

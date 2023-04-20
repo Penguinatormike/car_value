@@ -4,20 +4,14 @@ namespace App\Calculator;
 
 class CalculatorFactory
 {
-    /** @var AverageCalculator|LinearRegressionCalculator $calculator */
+    /** @var AverageCalculator|LinearRegressionCalculator */
     private $calculator;
 
-    /**
-     * @param AverageCalculator|LinearRegressionCalculator $calculator
-     */
     public function setCalculator(AverageCalculator|LinearRegressionCalculator $calculator): void
     {
         $this->calculator = $calculator;
     }
 
-    /**
-     * @return AverageCalculator|LinearRegressionCalculator
-     */
     public function getCalculator(): AverageCalculator|LinearRegressionCalculator
     {
         return $this->calculator;

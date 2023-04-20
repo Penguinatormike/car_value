@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Inventory
+ * Inventory.
  *
  * @ORM\Table(name="inventory", indexes={@ORM\Index(name="listing_price", columns={"listing_price"}), @ORM\Index(name="listing_mileage", columns={"listing_mileage"}), @ORM\Index(name="car_id", columns={"car_id"}), @ORM\Index(name="dealer_id", columns={"dealer_id"})})
  * @ORM\Entity
@@ -205,6 +205,4 @@ class Inventory
 
         return $this;
     }
-
-
 }

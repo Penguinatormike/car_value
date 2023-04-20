@@ -2,8 +2,6 @@
 
 namespace App\Calculator\Conversion;
 
-use Exception;
-
 class CurrencyConversion
 {
     public const CURRENCY_CAD = 'cad';
@@ -11,22 +9,22 @@ class CurrencyConversion
     public const CAD_TO_USD = 0.739837;
 
     public const OFFLINE_CURRENCY_MAP = [
-        'cad-usd' => self::CAD_TO_USD
+        'cad-usd' => self::CAD_TO_USD,
     ];
 
     private $exchangeRate = 1;
 
     // public currency api courtesy of https://github.com/fawazahmed0/currency-api#readme
-    public const CURRENCY_API = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s/%s.json";
+    public const CURRENCY_API = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s/%s.json';
 
     public function __construct($fromCurrency, $toCurrency)
     {
         try {
-            if($exchangeRateJson = $this->getExchangeRateJson($fromCurrency, $toCurrency)) {
+            if ($exchangeRateJson = $this->getExchangeRateJson($fromCurrency, $toCurrency)) {
                 $exchangeRate = json_decode($exchangeRateJson, true);
-                $this->exchangeRate =  $exchangeRate[$toCurrency] ?: 1;
+                $this->exchangeRate = $exchangeRate[$toCurrency] ?: 1;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if (self::OFFLINE_CURRENCY_MAP["$fromCurrency-$toCurrency"]) {
                 $this->exchangeRate = self::OFFLINE_CURRENCY_MAP["$fromCurrency-$toCurrency"];
             }
