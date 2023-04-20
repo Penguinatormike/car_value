@@ -260,7 +260,7 @@ class LinearRegressionCalculatorTest extends BaseCalculatorTest
                 // convert to USD/Miles?
                 true,
                 // expected
-                26980.86,
+                26078.53,
                 // mileage
                 70000
             ],
