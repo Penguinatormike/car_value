@@ -2,7 +2,7 @@
 
 {% block body -%}
 
-    <div class="col-lg-8 offset-lg-5">
+    <div class="col-lg-6 offset-lg-5">
         <h5>Results for:</h5>
         {% for key, value in carForm %}
             <div>
@@ -45,7 +45,7 @@
             </tbody>
         </table>
     {% else %}
-        <div class="col-lg-8 offset-lg-5">
+        <div class="col-lg-6 offset-lg-5">
             <h6>{{ errorMsg }}</h6>
         </div>
     {% endif %}
