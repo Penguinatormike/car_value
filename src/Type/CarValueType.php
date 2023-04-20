@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Type;
 
 use App\Entity\Dealer;
 use Symfony\Component\Form\AbstractType;
@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\Positive;
 
 class CarValueType extends AbstractType
 {
+    public const TYPE = 'car_value';
     public const MAKE = 'make';
     public const MODEL = 'model';
     public const YEAR = 'year';
