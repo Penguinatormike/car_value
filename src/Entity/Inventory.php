@@ -12,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Inventory
 {
-    const LISTING_PRICE = 'listingPrice';
-    const LISTING_MILEAGE = 'listingMileage';
+    public const LISTING_PRICE = 'listingPrice';
+    public const LISTING_MILEAGE = 'listingMileage';
 
     /**
      * @var int

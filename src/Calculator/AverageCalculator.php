@@ -1,18 +1,20 @@
 <?php
+
 namespace App\Calculator;
 
 use App\Entity\Inventory;
 use Exception;
 
-class AverageCalculator extends BaseCalculator {
-
+class AverageCalculator extends BaseCalculator
+{
     /**
      * Average price of all cars in the data
      *
      * @param $targetMileage
      * @return float
      */
-    public function calculate($targetMileage) : float {
+    public function calculate($targetMileage): float
+    {
         $carData = $this->getCarData();
 
         $totalCars = count($carData);

@@ -87,10 +87,10 @@ class Dealer
         "wy" => "WY - Wyoming, US",
     ];
 
-    const COUNTRY_CAN = 'can';
-    const COUNTRY_USA = 'usa';
+    public const COUNTRY_CAN = 'can';
+    public const COUNTRY_USA = 'usa';
 
-    const DEALER_COUNTRY = 'dealerCountry';
+    public const DEALER_COUNTRY = 'dealerCountry';
     /**
      * @var int
      *

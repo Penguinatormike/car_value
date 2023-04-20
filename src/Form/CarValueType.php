@@ -15,12 +15,12 @@ use Symfony\Component\Validator\Constraints\Positive;
 
 class CarValueType extends AbstractType
 {
-    const MAKE = 'make';
-    const MODEL = 'model';
-    const YEAR = 'year';
-    const TRIM = 'trim';
-    const MILEAGE = 'mileage';
-    const STATE = 'state';
+    public const MAKE = 'make';
+    public const MODEL = 'model';
+    public const YEAR = 'year';
+    public const TRIM = 'trim';
+    public const MILEAGE = 'mileage';
+    public const STATE = 'state';
 
     /**
      * @return void

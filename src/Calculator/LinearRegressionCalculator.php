@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Calculator;
 
 use App\Entity\Inventory;
 
-class LinearRegressionCalculator extends BaseCalculator {
-
+class LinearRegressionCalculator extends BaseCalculator
+{
     /**
      * Finds the linear regression formula for the given data and uses the targetMileage to find the price
      *
@@ -19,7 +20,8 @@ class LinearRegressionCalculator extends BaseCalculator {
      * @param $targetMileage
      * @return float
      */
-    public function calculate($targetMileage) : float {
+    public function calculate($targetMileage): float
+    {
         $carData = $this->getCarData();
 
         $n = count($carData);

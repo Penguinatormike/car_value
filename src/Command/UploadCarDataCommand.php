@@ -21,8 +21,8 @@ ini_set('memory_limit', '8G');
     description: 'Upload car data into the database',
     hidden: false,
 )]
-class UploadCarDataCommand extends Command {
-
+class UploadCarDataCommand extends Command
+{
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -56,7 +56,8 @@ class UploadCarDataCommand extends Command {
         "listing_status"            => 24,
     ];
 
-    public function __construct(private EntityManagerInterface $entityManager) {
+    public function __construct(private EntityManagerInterface $entityManager)
+    {
         $this->em = $entityManager;
         parent::__construct();
     }
@@ -80,7 +81,8 @@ class UploadCarDataCommand extends Command {
      * @return int
      * @throws \Doctrine\DBAL\Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int {
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
         $startTime = microtime(true);
         $inventoryListingFile = $input->getArgument('fileName');
         $batchSize = $input->getArgument('batchSize');
@@ -99,7 +101,7 @@ class UploadCarDataCommand extends Command {
 
         $batchCounter = 0;
 
-        $fh = fopen($inventoryListingFile,'r');
+        $fh = fopen($inventoryListingFile, 'r');
         while ($line = fgets($fh)) {
             $lineArray = explode("|", strtolower($line));
             if (empty($headers)) {
@@ -246,7 +248,8 @@ class UploadCarDataCommand extends Command {
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    private function flushAndCleanEntityManager() {
+    private function flushAndCleanEntityManager()
+    {
         $this->em->flush();
         $this->em->clear();
     }
@@ -263,12 +266,11 @@ class UploadCarDataCommand extends Command {
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    private function shouldBatchFlush($batchCounter, $batchSize) {
+    private function shouldBatchFlush($batchCounter, $batchSize)
+    {
         if (($batchCounter % $batchSize) === 0) {
             $this->flushAndCleanEntityManager();
         }
     }
 
 }
-
-?>

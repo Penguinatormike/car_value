@@ -1,22 +1,23 @@
 <?php
+
 namespace App\Calculator\Conversion;
 
 use Exception;
 
-class CurrencyConversion {
+class CurrencyConversion
+{
+    public const CURRENCY_CAD = 'cad';
+    public const CURRENCY_USD = 'usd';
+    public const CAD_TO_USD = 0.739837;
 
-    const CURRENCY_CAD = 'cad';
-    const CURRENCY_USD = 'usd';
-    const CAD_TO_USD = 0.739837;
-
-    const OFFLINE_CURRENCY_MAP = [
+    public const OFFLINE_CURRENCY_MAP = [
         'cad-usd' => self::CAD_TO_USD
     ];
 
     private $exchangeRate = 1;
 
     // public currency api courtesy of https://github.com/fawazahmed0/currency-api#readme
-    const CURRENCY_API = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s/%s.json";
+    public const CURRENCY_API = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s/%s.json";
 
     public function __construct($fromCurrency, $toCurrency)
     {
@@ -35,14 +36,16 @@ class CurrencyConversion {
     /**
      * @return float|int|mixed
      */
-    public function getExchangeRate() {
+    public function getExchangeRate()
+    {
         return $this->exchangeRate;
     }
 
     /**
      * @return false|string
      */
-    protected function getExchangeRateJson($fromCurrency, $toCurrency): string|false {
+    protected function getExchangeRateJson($fromCurrency, $toCurrency): string|false
+    {
         return file_get_contents(sprintf(self::CURRENCY_API, $fromCurrency, $toCurrency));
     }
 }
