@@ -14,10 +14,19 @@ class CalculatorFactory {
         $this->calculator = $calculator;
     }
 
+    /**
+     * @return AverageCalculator|LinearRegressionCalculator
+     */
     public function getCalculator() : AverageCalculator|LinearRegressionCalculator {
         return $this->calculator;
     }
 
+    /**
+     * @param $carData
+     * @param $mileage
+     * @return void
+     * @throws \Exception
+     */
     public function create($carData, $mileage) : void {
         if (empty($mileage)) {
             $this->setCalculator(new AverageCalculator($carData));

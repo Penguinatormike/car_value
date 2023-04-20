@@ -13,7 +13,7 @@ class CurrencyConversion {
         'cad-usd' => self::CAD_TO_USD
     ];
 
-    private $exchangeRate = '1';
+    private $exchangeRate = 1;
 
     // public currency api courtesy of https://github.com/fawazahmed0/currency-api#readme
     const CURRENCY_API = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/%s/%s.json";
@@ -32,6 +32,9 @@ class CurrencyConversion {
         }
     }
 
+    /**
+     * @return float|int|mixed
+     */
     public function getExchangeRate() {
         return $this->exchangeRate;
     }
