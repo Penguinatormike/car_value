@@ -22,7 +22,6 @@ class CarValueController extends AbstractController
         $form = $this->createForm(CarValueType::class);
         $form->handleRequest($request);
         $errorMsg = [];
-        $logger->info(phpinfo());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
