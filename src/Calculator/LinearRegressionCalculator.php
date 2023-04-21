@@ -53,11 +53,13 @@ class LinearRegressionCalculator extends BaseCalculator
         $b = (($n * $sumXY) - ($sumX * $sumY)) /
             (($n * $sumXX) - ($sumX * $sumX));
 
-        // b = slope, which should never increase. In the event the price goes up and the mileage goes up
-        // this usually indicates that the car is new and doesn't have enough data to
-        // create the slope variable. In this case, don't use this variable.
+
         if ($b > 0) {
-            $carValue = $a;
+            // b = slope, which should never increase. In the event the price goes up and the mileage goes up
+            // this usually indicates that the car is new and doesn't have enough mileage data to
+            // create the slope variable. In this case, don't use this variable.
+            // fallback to average calculation
+            $carValue = $sumY / $n;
         } else {
             // y = a + bx (x = targetMileage)
             $carValue = $a + ($b * $targetMileage);
